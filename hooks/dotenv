@@ -4,7 +4,6 @@ PROJECT_ROOT=$(git rev-parse --show-toplevel)
 
 main() {
     local env_files=($(find_all_dotenv_files))
-    echo ${env_files[@]}
     for env_file in "${env_files[@]}"; do
         generate_env_example "$env_file"
     done
@@ -16,7 +15,7 @@ generate_env_example () {
 }
 
 find_all_dotenv_files () {
-    find "$PROJECT_ROOT" -type f -iname '*.env'
+    find "$PROJECT_ROOT" -type f -iname '*.env*' ! -iname '*.example'
 }
 
 main "$@"
